@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import {
   Box,
   Flex,
@@ -17,6 +17,12 @@ import {
   Center,
 } from "@chakra-ui/react";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
+import Router from "next/router";
+import { MetaMaskConnector } from "wagmi/connectors/metaMask";
+import { signIn } from "next-auth/react";
+import { useAccount, useConnect, useSignMessage, useDisconnect } from "wagmi";
+import { useRouter } from "next/router";
+import { useAuthRequestChallengeEvm } from "@moralisweb3/next";
 
 const NavLink = ({ children }) => (
   <Link
@@ -36,55 +42,56 @@ const NavLink = ({ children }) => (
 export default function Nav() {
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { connectAsync } = useConnect();
+  const { disconnectAsync } = useDisconnect();
+  const { isConnected } = useAccount();
+  const { signMessageAsync } = useSignMessage();
+  const { requestChallengeAsync } = useAuthRequestChallengeEvm();
+  const { push } = useRouter();
+
+  const handleAuth = async () => {
+    console.log(isConnected);
+    if (isConnected) {
+      await disconnectAsync();
+    }
+
+    const { account, chain } = await connectAsync({
+      connector: new MetaMaskConnector(),
+    });
+    console.log(account, chain);
+  };
+
   return (
     <>
       <Box
         bg={useColorModeValue("white.100", "white.900")}
-        px={4}
-        pos="fixed"
+        px={2}
         width={"100%"}
+        zIndex={"+111"}
       >
-        <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
-          <Box></Box>
-
+        <Flex
+         zIndex={"111"}
+          bg={useColorModeValue("black", "white.900")}
+          width={"100%"}
+          h={16}
+          alignItems={"center"}
+          justifyContent={"space-between"}
+          position="fixed"
+          top={"0"}
+          right="0"
+          px={"2vw"}
+        >
+          <Box color="white" fontSize={"25px"}>
+            Zero Tier
+          </Box>
           <Flex alignItems={"center"}>
             <Stack direction={"row"} spacing={7}>
               <Button onClick={toggleColorMode}>
                 {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
               </Button>
-
-              <Menu>
-                <MenuButton
-                  as={Button}
-                  rounded={"full"}
-                  variant={"link"}
-                  cursor={"pointer"}
-                  minW={0}
-                >
-                  <Avatar
-                    size={"sm"}
-                    src={"https://avatars.dicebear.com/api/male/username.svg"}
-                  />
-                </MenuButton>
-                <MenuList alignItems={"center"}>
-                  <br />
-                  <Center>
-                    <Avatar
-                      size={"2xl"}
-                      src={"https://avatars.dicebear.com/api/male/username.svg"}
-                    />
-                  </Center>
-                  <br />
-                  <Center>
-                    <p>Username</p>
-                  </Center>
-                  <br />
-                  <MenuDivider />
-                  <MenuItem>Your Servers</MenuItem>
-                  <MenuItem>Account Settings</MenuItem>
-                  <MenuItem>Logout</MenuItem>
-                </MenuList>
-              </Menu>
+              <Button color={"black"} onClick={handleAuth}>
+                Connect Wallet
+              </Button>
             </Stack>
           </Flex>
         </Flex>
