@@ -6,7 +6,6 @@ import {
   Flex,
   Icon,
   useColorModeValue,
-  Link,
   Drawer,
   DrawerContent,
   Text,
@@ -22,21 +21,27 @@ import {
   FiSettings,
   FiMenu,
 } from "react-icons/fi";
-import { IconType } from "react-icons";
-import { ReactText } from "react";
+import Link from "next/link";
+
+import { useRouter } from "next/router";
 
 const LinkItems = [
-  { name: "Home", icon: FiHome },
-  { name: "Trending", icon: FiTrendingUp },
-  { name: "Explore", icon: FiCompass },
-  { name: "Favourites", icon: FiStar },
-  { name: "Settings", icon: FiSettings },
+  { name: "Home", icon: FiHome, href: "/home" },
+  { name: "Trending", icon: FiTrendingUp, href: "/trending" },
+  { name: "Explore", icon: FiCompass, href: "/explore" },
+  { name: "Favourites", icon: FiStar, href: "/favourites" },
+  { name: "Settings", icon: FiSettings, href: "/settings" },
 ];
 
 export default function SimpleSidebar({ children }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const router = useRouter();
   return (
-    <Box minH="100vh" bg={useColorModeValue("gray.100", "gray.900")}>
+    <Box
+      minH="100vh"
+      bg={useColorModeValue("gray.100", "gray.900")}
+      zIndex={"100"}
+    >
       <SidebarContent
         onClose={() => onClose}
         display={{ base: "none", md: "block" }}
@@ -75,13 +80,13 @@ const SidebarContent = ({ onClose, ...rest }) => {
       {...rest}
     >
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-        <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-          Logo
+        <Text fontSize="2xl" fontFamily="" fontWeight="bold">
+          {/* Zero Tier */}
         </Text>
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
-        <NavItem key={link.name} icon={link.icon}>
+        <NavItem key={link.name} icon={link.icon} link={link.href}>
           {link.name}
         </NavItem>
       ))}
@@ -89,22 +94,23 @@ const SidebarContent = ({ onClose, ...rest }) => {
   );
 };
 
-const NavItem = ({ icon, children, ...rest }) => {
+const NavItem = ({ icon, children, link, ...rest }) => {
   return (
     <Link
-      href="#"
+      href={link}
       style={{ textDecoration: "none" }}
       _focus={{ boxShadow: "none" }}
     >
       <Flex
         align="center"
-        p="4"
+        p="2"
+        my="4"
         mx="4"
         borderRadius="lg"
         role="group"
         cursor="pointer"
         _hover={{
-          bg: "cyan.400",
+          bg: "black",
           color: "white",
         }}
         {...rest}
@@ -146,7 +152,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
       />
 
       <Text fontSize="2xl" ml="8" fontFamily="monospace" fontWeight="bold">
-        Logo
+        {/* Zero Tier */}
       </Text>
     </Flex>
   );
