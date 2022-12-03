@@ -1,3 +1,5 @@
+import fs from "fs";
+
 export default async function handler(req, res) {
     //first part to generate the upload url
     const response = await fetch(
@@ -18,13 +20,13 @@ export default async function handler(req, res) {
     }
 
     //second part
-    const uploadUrl = data.url;
-    const assetId = data.asset.id;
+    const uploadUrl = uploadData.url;
+    const assetId = uploadData.asset.id;
     const path = "C:/code tech/miscellaneous stuff/vid1.mp4";
 
     const upload = await fetch(uploadUrl, {
         method: "PUT",
         body: fs.createReadStream(path),
     });
-    res.status(200).json(data);
+    res.status(200).json(uploadData);
 }
