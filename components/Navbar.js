@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import {
   Box,
   Flex,
@@ -59,23 +59,6 @@ export default function Nav() {
       connector: new MetaMaskConnector(),
     });
     console.log(account, chain);
-
-    //500 bad request
-    const { message } = await requestChallengeAsync({
-      address: account,
-      chainId: chain.id,
-    });
-
-    const signature = await signMessageAsync({ message });
-
-    const { url } = await signIn("credentials", {
-      message,
-      signature,
-      redirect: false,
-      callbackUrl: "/user",
-    });
-
-    push(url);
   };
 
   return (
