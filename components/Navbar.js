@@ -17,6 +17,8 @@ import {
   Center,
 } from "@chakra-ui/react";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
+import SignIn from "../pages/signin";
+import Router from "next/router";
 
 const NavLink = ({ children }) => (
   <Link
@@ -40,9 +42,9 @@ export default function Nav() {
     <>
       <Box
         bg={useColorModeValue("white.100", "white.900")}
-        px={4}
-        pos="fixed"
+        px={2}
         width={"100%"}
+        zIndex={"-1"}
       >
         <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
           <Box></Box>
@@ -52,8 +54,7 @@ export default function Nav() {
               <Button onClick={toggleColorMode}>
                 {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
               </Button>
-
-              <Menu>
+              {/* <Menu>
                 <MenuButton
                   as={Button}
                   rounded={"full"}
@@ -84,7 +85,8 @@ export default function Nav() {
                   <MenuItem>Account Settings</MenuItem>
                   <MenuItem>Logout</MenuItem>
                 </MenuList>
-              </Menu>
+              </Menu> */}
+              <Button color={"black"}>Connect Wallet</Button>
             </Stack>
           </Flex>
         </Flex>
