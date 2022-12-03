@@ -13,29 +13,36 @@ import {
 
 export const VideoCard = () => {
   return (
-    <Card width={"22.5vw"} height="60vh">
-      <CardBody>
+    <Card width={"22.5vw"} height="fit-content" margin={"15px"}>
+      <CardBody padding={"0"}>
         <Image
-          src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
+          src="https://source.unsplash.com/featured/300x202"
           alt="Green double couch with wooden legs"
-          borderRadius="lg"
+          borderRadius="sm"
+          width={"100%"}
+          margin="0"
         />
-        <Stack mt="6" spacing="3">
-          <Heading size="md">Living room Sofa</Heading>
+        <Stack mt="6" spacing="3" mx="5">
+          <Heading size="md">A demo video</Heading>
 
-          <Text color="black.900" fontSize="2xl">
-            $450
+          <Text color="black.900" fontSize="xl">
+            5 MATIC
           </Text>
         </Stack>
       </CardBody>
       <Divider />
       <CardFooter>
         <ButtonGroup spacing="2">
-          <Button variant="primary" colorScheme="white" backgroundColor={"blackAlpha.900"} color="white">
-            Buy now
+          <Button
+            variant="primary"
+            colorScheme="white"
+            backgroundColor={"blackAlpha.900"}
+            color="white"
+          >
+            Watch Now
           </Button>
           <Button variant="ghost" colorScheme="black">
-            Add to cart
+            Add to watchlist
           </Button>
         </ButtonGroup>
       </CardFooter>

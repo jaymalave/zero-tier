@@ -1,5 +1,12 @@
 import styles from "../styles/Home.module.css";
-import { SimpleGrid, Box } from "@chakra-ui/react";
+import {
+  SimpleGrid,
+  Box,
+  InputGroup,
+  InputLeftElement,
+  SearchIcon,
+  Input,
+} from "@chakra-ui/react";
 import { VideoCard } from "../components/VideoCard";
 
 export default function Home() {
