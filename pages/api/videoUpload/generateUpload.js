@@ -22,7 +22,7 @@ export default async function handler(req, res) {
     //second part
     const uploadUrl = uploadData.url;
     const assetId = uploadData.asset.id;
-    const path = "C:/code tech/miscellaneous stuff/vid1.mp4";
+    const path = req.body.filePath;
 
     const upload = await fetch(uploadUrl, {
         method: "PUT",

@@ -1,35 +1,35 @@
-import formidable from "formidable";
-import fs from "fs";
+import nextConnect from "next-connect";
+import multer from "multer";
+
+const upload = multer({
+    storage: multer.diskStorage({
+        destination: "./public/uploads",
+        filename: (req, file, cb) => cb(null, file.originalname),
+    }),
+});
+
+const apiRoute = nextConnect({
+    onError(error, req, res) {
+        res
+            .status(501)
+            .json({ error: `Sorry something Happened! ${error.message}` });
+    },
+    onNoMatch(req, res) {
+        res.status(405).json({ error: `Method '${req.method}' Not Allowed` });
+    },
+});
+
+apiRoute.use(upload.array("videoFile"));
+
+apiRoute.post((req, res) => {
+    const filename = req.files[0].filename;
+    res.status(200).json({ data: "success", filename: filename });
+});
+
+export default apiRoute;
 
 export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
-
-const post = async (req, res) => {
-  const form = new formidable.IncomingForm();
-  form.parse(req, async function (err, fields, files) {
-    await saveFile(files.file);
-    return res.status(201).send("");
-  });
-};
-
-const saveFile = async (file) => {
-  const data = fs.readFileSync(file.path);
-  fs.writeFileSync(`./public/${file.name}`, data);
-  await fs.unlinkSync(file.path);
-  return;
-};
-
-export default (req, res) => {
-  req.method === "POST"
-    ? post(req, res)
-    : req.method === "PUT"
-    ? console.log("PUT")
-    : req.method === "DELETE"
-    ? console.log("DELETE")
-    : req.method === "GET"
-    ? console.log("GET")
-    : res.status(404).send("");
+    api: {
+        bodyParser: false, // Disallow body parsing, consume as stream
+    },
 };
