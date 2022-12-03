@@ -13,6 +13,7 @@ function User({ user }) {
 export async function getServerSideProps(context) {
   const session = await getSession(context);
 
+  // redirect if not authenticated
   if (!session) {
     return {
       redirect: {
