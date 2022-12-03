@@ -1,5 +1,6 @@
 import "../styles/globals.css";
 import { ChakraProvider } from "@chakra-ui/react";
+import { useEffect } from "react";
 import SimpleSidebar from "../components/Sidebar";
 import Nav from "../components/Navbar";
 import {

@@ -58,6 +58,11 @@ export default function Nav() {
     const { account, chain } = await connectAsync({
       connector: new MetaMaskConnector(),
     });
+
+    if (account) {
+      localStorage.setItem("address", account);
+    }
+
     console.log(account, chain);
   };
 
@@ -70,7 +75,7 @@ export default function Nav() {
         zIndex={"+111"}
       >
         <Flex
-         zIndex={"111"}
+          zIndex={"111"}
           bg={useColorModeValue("black", "white.900")}
           width={"100%"}
           h={16}
@@ -89,9 +94,21 @@ export default function Nav() {
               <Button onClick={toggleColorMode}>
                 {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
               </Button>
-              <Button color={"black"} onClick={handleAuth}>
-                Connect Wallet
-              </Button>
+              {localStorage.getItem("address") != null ? (
+                <Box
+                  color={"white"}
+                  verticalAlign="center"
+                  display={"flex"}
+                  alignItems="center"
+                  justifyContent={"center"}
+                >
+                  {localStorage.getItem("address")}
+                </Box>
+              ) : (
+                <Button color={"black"} onClick={handleAuth}>
+                  Connect Wallet
+                </Button>
+              )}
             </Stack>
           </Flex>
         </Flex>
