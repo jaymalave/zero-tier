@@ -27,9 +27,8 @@ function MyApp({ Component, pageProps }) {
       <SessionProvider session={pageProps.session} refetchInterval={0}>
         <ChakraProvider>
           <SimpleSidebar>
-            <Nav>
-              <Component {...pageProps} />
-            </Nav>
+            <Nav />
+            <Component {...pageProps} />
           </SimpleSidebar>
         </ChakraProvider>
       </SessionProvider>

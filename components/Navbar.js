@@ -67,11 +67,23 @@ export default function Nav() {
         bg={useColorModeValue("white.100", "white.900")}
         px={2}
         width={"100%"}
-        zIndex={"-1"}
+        zIndex={"+111"}
       >
-        <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
-          <Box></Box>
-
+        <Flex
+         zIndex={"111"}
+          bg={useColorModeValue("black", "white.900")}
+          width={"100%"}
+          h={16}
+          alignItems={"center"}
+          justifyContent={"space-between"}
+          position="fixed"
+          top={"0"}
+          right="0"
+          px={"2vw"}
+        >
+          <Box color="white" fontSize={"25px"}>
+            Zero Tier
+          </Box>
           <Flex alignItems={"center"}>
             <Stack direction={"row"} spacing={7}>
               <Button onClick={toggleColorMode}>
