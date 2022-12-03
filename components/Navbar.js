@@ -94,7 +94,7 @@ export default function Nav() {
               <Button onClick={toggleColorMode}>
                 {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
               </Button>
-              {localStorage.getItem("address") != null ? (
+              {/* {localStorage.getItem("address") != null ? (
                 <Box
                   color={"white"}
                   verticalAlign="center"
@@ -108,7 +108,7 @@ export default function Nav() {
                 <Button color={"black"} onClick={handleAuth}>
                   Connect Wallet
                 </Button>
-              )}
+              )} */}
             </Stack>
           </Flex>
         </Flex>
