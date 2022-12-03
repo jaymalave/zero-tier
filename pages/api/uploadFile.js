@@ -15,6 +15,7 @@ const apiRoute = nextConnect({
             .json({ error: `Sorry something Happened! ${error.message}` });
     },
     onNoMatch(req, res) {
+        console.log(req.method);
         res.status(405).json({ error: `Method '${req.method}' Not Allowed` });
     },
 });
